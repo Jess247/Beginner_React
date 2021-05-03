@@ -16,34 +16,70 @@ import './index.css';
 // // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-// create list with dynamic content
+// #### create list with dynamic content
 // const lakeList = [
 //   "Echo Lake", 
 //   "Maud Lake", 
 //   "Cascade Lake"
 // ];
 
-// render list objects
-const lakeList = [
-  {id:"1", name: "Echo", trailhead: "Echo"},
-  {id:"2", name: "Maud", trailhead: "wrights"},
-  {id:"3", name: "Velma", trailhead: "Bayview"}
-];
+// ########
 
-function App({lakes}) {
+// ###### render list objects
+// const lakeList = [
+//   {id:"1", name: "Echo", trailhead: "Echo"},
+//   {id:"2", name: "Maud", trailhead: "wrights"},
+//   {id:"3", name: "Velma", trailhead: "Bayview"}
+// ];
+
+// function App({lakes}) {
+//   return(
+//     <div>
+//       {lakes.map(lake => (
+//         <div key={lake.id}>
+//           <h2>{lake.name}</h2>
+//           <p>Accessed by: {lake.trailhead}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+// ########
+
+// ##### Contditions (ternary ifs also works with standard ifs)
+function Lake({name}) {
   return(
     <div>
-      {lakes.map(lake => (
-        <div key={lake.id}>
-          <h2>{lake.name}</h2>
-          <p>Accessed by: {lake.trailhead}</p>
-        </div>
-      ))}
+      <h1>Visits {name}</h1>
     </div>
   );
 }
 
+function Skiresort({name}) {
+  return(
+    <div>
+      <h1>Visits {name}</h1>
+    </div>
+  );
+}
+
+
+function App(props){
+  return(
+    <div>
+      {props.season === "summer" ? (<Lake name="Lake Taho" />
+      ) : props.season ==="winter" ? (<Skiresort name="the Apls" />
+      ) : (
+        <h1>
+        Come back in summer or winter
+        </h1>
+      )}
+    </div>
+  );
+  
+}
+
  ReactDOM.render(
-   <App lakes={lakeList}/>,
+   <App season="spring"/>,
    document.getElementById("root")
  );
