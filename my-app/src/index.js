@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -154,24 +154,57 @@ import './index.css';
 // #######
 
 // ##### add checkbox
-function Checkbox(){
-  const [checked, setChecked] = useState(false);
+// function Checkbox(){
+//   const [checked, setChecked] = useState(false);
 
-  // hook to perform side effects
+//   // hook to perform side effects
+//   useEffect(() => {
+//     alert(`checked: ${checked.toString()}`);
+//   });
+//   return(
+//     <>
+//       <input 
+//       type="checkbox" 
+//       value={checked} onChange={() => setChecked(checked => !checked)}/>
+//       {checked ? "checked" : "not checked"}
+//     </>
+//   );
+// }
+  // ReactDOM.render(
+  //   <Checkbox />,
+  //   document.getElementById("root")
+  // );
+// ######
+
+function App() {
+  const [val, setVal] = useState("Enter a Phrase");
+  const [val2, setVal2] = useState("Enter another Phrase");
+
+  // dependency array [] helps with unnessesary rendering
   useEffect(() => {
-    alert(`checked: ${checked.toString()}`);
-  });
+    console.log(`field1: ${val}`);
+  },[val]);
+
+  useEffect(() => {
+    console.log(`field2: ${val2}`);
+  },[val2]);
+
   return(
     <>
-      <input 
-      type="checkbox" 
-      value={checked} onChange={() => setChecked(checked => !checked)}/>
-      {checked ? "checked" : "not checked"}
+      <label>
+        Favorite Phrase:
+        <input value={val} onChange={e => setVal(e.target.value)}/>
+      </label>
+      <br/>
+      <label>
+        Second Favorite Phrase:
+        <input value={val2} onChange={e => setVal2(e.target.value)}/>
+      </label>
     </>
   );
 }
 
  ReactDOM.render(
-   <Checkbox />,
+   <App />,
    document.getElementById("root")
  );
