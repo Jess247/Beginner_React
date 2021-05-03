@@ -176,34 +176,63 @@ import './index.css';
   // );
 // ######
 
-function App() {
-  const [val, setVal] = useState("Enter a Phrase");
-  const [val2, setVal2] = useState("Enter another Phrase");
+// ####### updating with use effect dependency arrays
+// function App() {
+//   const [val, setVal] = useState("Enter a Phrase");
+//   const [val2, setVal2] = useState("Enter another Phrase");
 
-  // dependency array [] helps with unnessesary rendering
+//   // dependency array [] helps with unnessesary rendering
+//   useEffect(() => {
+//     console.log(`field1: ${val}`);
+//   },[val]);
+
+//   useEffect(() => {
+//     console.log(`field2: ${val2}`);
+//   },[val2]);
+
+//   return(
+//     <>
+//       <label>
+//         Favorite Phrase:
+//         <input value={val} onChange={e => setVal(e.target.value)}/>
+//       </label>
+//       <br/>
+//       <label>
+//         Second Favorite Phrase:
+//         <input value={val2} onChange={e => setVal2(e.target.value)}/>
+//       </label>
+//     </>
+//   );
+// }
+// ########
+
+//  build user component from Github API
+function GitHubUser({login}) {
+  const [data, setData] = useState(null);
   useEffect(() => {
-    console.log(`field1: ${val}`);
-  },[val]);
+    fetch(`https://api.github.com/users/${login}`)
+    .then(res => res.json())
+    .then(setData)
+    .catch(console.error);
+  }, []);
 
-  useEffect(() => {
-    console.log(`field2: ${val2}`);
-  },[val2]);
 
-  return(
-    <>
-      <label>
-        Favorite Phrase:
-        <input value={val} onChange={e => setVal(e.target.value)}/>
-      </label>
-      <br/>
-      <label>
-        Second Favorite Phrase:
-        <input value={val2} onChange={e => setVal2(e.target.value)}/>
-      </label>
-    </>
-  );
+  if(data) {
+    return (
+      // show string of JSON Data
+    // <div>{JSON.stringify(data)}</div>
+    <div>
+      <h1>{data.login}</h1>
+      <img src={data.avatar_url} width={100} />
+    </div>
+    );
+  }
+  return null;
 }
 
+function App() { 
+  return <GitHubUser login="Jess247" />
+}
  ReactDOM.render(
    <App />,
    document.getElementById("root")
