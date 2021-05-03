@@ -34,7 +34,7 @@ function App({lakes}) {
   return(
     <div>
       {lakes.map(lake => (
-        <div>
+        <div key={lake.id}>
           <h2>{lake.name}</h2>
           <p>Accessed by: {lake.trailhead}</p>
         </div>
