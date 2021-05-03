@@ -111,25 +111,43 @@ import './index.css';
 //   );
   
 // }
+// ####
 
-//  using states
+// ###### using states
+
 function App() {
   // initial state
   // useState is a build in hook to handle state changes
   // first value is state value second is function to change it
+  const [year, setYear] = useState(2021);
+  const [manager, setManager] = useState("Mrs. Smith");
   const [status, setStatus] = useState("open");
   return(
-    <div>
-      <h1>Status: {status}</h1>
-      <button onClick={() => setStatus("open")}>
-        Open
-      </button>
-      <button onClick={() => setStatus("closed")}>
-        Closed
-      </button>
+    <>
+      <div>
+        <h1>{year}</h1>
+        <button onClick={() => setYear(year + 1)}>Next year</button>
+      </div>
+      <div>
+        <h1>Manager on Duty: {manager}</h1>
+        <button onClick={() => setManager("Mrs. Juno")}>Juno</button>
+        <button onClick={() => setManager("Mrs. Smith")}>Smith</button>
+      </div>
+      <div>
+        <h1>Status: {status}</h1>
+        <button onClick={() => setStatus("open")}>
+          Open
+        </button>
+        <button onClick={() => setStatus("closed")}>
+          Closed
+        </button>
     </div>
+    </>
+    
   );
 }
+// #######
+
 
  ReactDOM.render(
    <App />,
