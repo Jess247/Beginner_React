@@ -206,34 +206,56 @@ import './index.css';
 // }
 // ########
 
-//  build user component from Github API
-function GitHubUser({login}) {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${login}`)
-    .then(res => res.json())
-    .then(setData)
-    .catch(console.error);
-  }, []);
+// ##### build user component from Github API
+// function GitHubUser({login}) {
+//   const [data, setData] = useState(null);
+//   useEffect(() => {
+//     fetch(`https://api.github.com/users/${login}`)
+//     .then(res => res.json())//response from API trun it in JSON
+//     .then(setData)// call function with new data (set new data)
+//     .catch(console.error);
+//   }, [login]);
 
 
-  if(data) {
-    return (
-      // show string of JSON Data
-    // <div>{JSON.stringify(data)}</div>
-    <div>
-      <h1>{data.login}</h1>
-      <img src={data.avatar_url} width={100} />
-    </div>
-    );
-  }
-  return null;
+//   if(data) {
+//     return (
+//       // show string of JSON Data
+//     // <div>{JSON.stringify(data)}</div>
+//     <div>
+//       <h1>{data.login}</h1>
+//       <img src={data.avatar_url} width={100} alt="GitHub avatar"/>
+//     </div>
+//     );
+//   }
+//   return null;
+// }
+
+// function App() { 
+//   return <GitHubUser login="Jess247" />
+// }
+//  ReactDOM.render(
+//    <App />,
+//    document.getElementById("root")
+//  );
+
+// ##########
+
+// using useReducer hook
+function Checkbox(){
+  const [checked, toggle] = useReducer(checked => !checked,false);
+
+
+  return(
+    <>
+      <input 
+      type="checkbox" 
+      value={checked} onChange={toggle}/>
+      {checked ? "checked" : "not checked"}
+    </>
+  );
 }
-
-function App() { 
-  return <GitHubUser login="Jess247" />
-}
- ReactDOM.render(
-   <App />,
-   document.getElementById("root")
- );
+  ReactDOM.render(
+    <Checkbox />,
+    document.getElementById("root")
+  );
+// ######
