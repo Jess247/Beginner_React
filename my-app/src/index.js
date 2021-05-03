@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -47,39 +47,91 @@ import './index.css';
 // ########
 
 // ##### Contditions (ternary ifs also works with standard ifs)
-function Lake({name}) {
-  return(
-    <div>
-      <h1>Visits {name}</h1>
-    </div>
-  );
-}
+// function Lake({name}) {
+//   return(
+//     <div>
+//       <h1>Visits {name}</h1>
+//     </div>
+//   );
+// }
 
-function Skiresort({name}) {
-  return(
-    <div>
-      <h1>Visits {name}</h1>
-    </div>
-  );
-}
+// function Skiresort({name}) {
+//   return(
+//     <div>
+//       <h1>Visits {name}</h1>
+//     </div>
+//   );
+// }
 
 
-function App(props){
-  return(
-    <div>
-      {props.season === "summer" ? (<Lake name="Lake Taho" />
-      ) : props.season ==="winter" ? (<Skiresort name="the Apls" />
-      ) : (
-        <h1>
-        Come back in summer or winter
-        </h1>
-      )}
-    </div>
-  );
+// function App(props){
+//   return(
+//     <div>
+//       {props.season === "summer" ? (<Lake name="Lake Taho" />
+//       ) : props.season ==="winter" ? (<Skiresort name="the Apls" />
+//       ) : (
+//         <h1>
+//         Come back in summer or winter
+//         </h1>
+//       )}
+//     </div>
+//   );
   
+// }
+// #####
+
+// ####### use fragments avoid rendering multible unnessisary divs
+// 
+// function Lake() {
+//   return(
+//       <h1>Lakes</h1>
+//   );
+// }
+
+// function Skiresort() {
+//   return(
+//       <h1>Resorts</h1>
+//   );
+// }
+
+
+// function App(){
+//   return(
+//     // long version
+//     // <React.Fragment>
+//     // <Lake/>
+//     // <Skiresort/>
+//     // </React.Fragment>
+    
+//     // short
+//     <>
+//     <Lake/>
+//     <Skiresort/>
+//     </>
+//   );
+  
+// }
+
+//  using states
+function App() {
+  // initial state
+  // useState is a build in hook to handle state changes
+  // first value is state value second is function to change it
+  const [status, setStatus] = useState("open");
+  return(
+    <div>
+      <h1>Status: {status}</h1>
+      <button onClick={() => setStatus("open")}>
+        Open
+      </button>
+      <button onClick={() => setStatus("closed")}>
+        Closed
+      </button>
+    </div>
+  );
 }
 
  ReactDOM.render(
-   <App season="spring"/>,
+   <App />,
    document.getElementById("root")
  );
