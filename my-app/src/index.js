@@ -241,21 +241,48 @@ import './index.css';
 // ##########
 
 // using useReducer hook
-function Checkbox(){
-  const [checked, toggle] = useReducer(checked => !checked,false);
+// function Checkbox(){
+//   const [checked, toggle] = useReducer(checked => !checked,false);
 
 
-  return(
-    <>
-      <input 
-      type="checkbox" 
-      value={checked} onChange={toggle}/>
-      {checked ? "checked" : "not checked"}
-    </>
-  );
-}
+//   return(
+//     <>
+//       <input 
+//       type="checkbox" 
+//       value={checked} onChange={toggle}/>
+//       {checked ? "checked" : "not checked"}
+//     </>
+//   );
+// }
+//   ReactDOM.render(
+//     <Checkbox />,
+//     document.getElementById("root")
+//   );
+// ######
+
+// create user tf
+function App() {
+    const [username, setUsername] = useState("Enter a Username");
+  
+    // dependency array [] helps with unnessesary rendering
+    useEffect(() => {
+      console.log(`field: ${username}`);
+    },[username]);
+
+
+  
+    return(
+      <>
+        <label>
+          Find avatar:
+          <input value={username} onChange={e => setUsername(e.target.value)}/>
+          <button type="submit" onSubmit={e => setUsername(e.target.value)}>Search</button>
+        </label>
+      </>
+    );
+  }
+
   ReactDOM.render(
-    <Checkbox />,
+    <App />,
     document.getElementById("root")
   );
-// ######
