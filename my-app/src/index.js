@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -260,29 +260,43 @@ import './index.css';
 //   );
 // ######
 
-// create user tf
-function App() {
-    const [username, setUsername] = useState("Enter a Username");
-  
-    // dependency array [] helps with unnessesary rendering
-    useEffect(() => {
-      console.log(`field: ${username}`);
-    },[username]);
+// create Github User content
+function GitHubUser() {
+  const [data, setData] = useState(null);
+  const [username, setVal] = useState("Jess247");
 
 
-  
-    return(
-      <>
-        <label>
-          Find avatar:
-          <input value={username} onChange={e => setUsername(e.target.value)}/>
-          <button type="submit" onSubmit={e => setUsername(e.target.value)}>Search</button>
-        </label>
-      </>
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())//response from API trun it in JSON
+    .then(setData)// call function with new data (set new data)
+    .catch(console.error);
+  }, [username]);
+
+
+
+  if(data) {
+    return (
+      // show string of JSON Data
+    // <div>{JSON.stringify(data)}</div>
+    <div>
+      <label>
+        Look for a User:
+        <input value={username} onChange={e => setVal(e.target.value)}/>
+      </label>
+      <h1>{data.username}</h1>
+      <img src={data.avatar_url} width={100} alt="GitHub avatar"/>
+    </div>
     );
-  }
+  } 
+  return null;
+}
 
-  ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-  );
+function App() { 
+  return <GitHubUser />
+}
+ ReactDOM.render(
+   <App />,
+   document.getElementById("root")
+ ); 
+
