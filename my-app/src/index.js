@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -241,21 +241,62 @@ import './index.css';
 // ##########
 
 // using useReducer hook
-function Checkbox(){
-  const [checked, toggle] = useReducer(checked => !checked,false);
+// function Checkbox(){
+//   const [checked, toggle] = useReducer(checked => !checked,false);
 
 
-  return(
-    <>
-      <input 
-      type="checkbox" 
-      value={checked} onChange={toggle}/>
-      {checked ? "checked" : "not checked"}
-    </>
-  );
-}
-  ReactDOM.render(
-    <Checkbox />,
-    document.getElementById("root")
-  );
+//   return(
+//     <>
+//       <input 
+//       type="checkbox" 
+//       value={checked} onChange={toggle}/>
+//       {checked ? "checked" : "not checked"}
+//     </>
+//   );
+// }
+//   ReactDOM.render(
+//     <Checkbox />,
+//     document.getElementById("root")
+//   );
 // ######
+
+// create Github User content
+function GitHubUser() {
+  const [data, setData] = useState(null);
+  const [username, setVal] = useState("Jess247");
+
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())//response from API trun it in JSON
+    .then(setData)// call function with new data (set new data)
+    .catch(console.error);
+  }, [username]);
+
+
+
+  if(data) {
+    return (
+      // show string of JSON Data
+    // <div>{JSON.stringify(data)}</div>
+    <div>
+      <label>
+        Look for a User: <br/>
+        <input value={username} onChange={e => setVal(e.target.value)}/>
+      </label>
+      <h1>{data.username}</h1>
+      <img src={data.avatar_url} width={100} alt="GitHub avatar"/>
+    </div>
+    );
+  } 
+  return null;
+}
+
+function App() { 
+  return <GitHubUser />
+}
+ ReactDOM.render(
+   <App />,
+   document.getElementById("root")
+ ); 
+
