@@ -281,7 +281,7 @@ function GitHubUser() {
     // <div>{JSON.stringify(data)}</div>
     <div>
       <label>
-        Look for a User:
+        Look for a User: <br/>
         <input value={username} onChange={e => setVal(e.target.value)}/>
       </label>
       <h1>{data.username}</h1>
